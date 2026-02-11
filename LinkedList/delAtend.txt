@@ -1,0 +1,55 @@
+import java.util.Scanner;
+class Node{
+    int data;
+    Node next;
+Node(int data){
+    this.data=data;
+    this.next=null;
+}
+}
+class Linked{
+    Node head=null;
+    void insert(int val){
+        Node newNode=new Node(val);
+        if(head==null){
+        head=newNode;
+        return;
+        }
+         Node temp=head;
+    while(temp.next!=null){
+        temp=temp.next;
+    }
+    temp.next=newNode;
+    }
+  void del(){
+      if(head==null||head.next==null){
+          head=null;
+          return;
+      }
+      Node temp=head;
+      while(temp.next.next!=null){
+          temp=temp.next;
+      }
+      temp.next=null;
+  }
+  void dis(){
+      Node temp=head;
+      while(temp!=null){
+          System.out.print(temp.data+" ");
+          temp=temp.next;
+      }
+  }
+}
+public class Main{
+    public static void main(String[]args){
+        Scanner sc=new Scanner(System.in);
+        Linked q=new Linked();
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++){
+            q.insert(sc.nextInt()); 
+        }
+       
+        q.del();
+        q.dis();
+    }
+}
