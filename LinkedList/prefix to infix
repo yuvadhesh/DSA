@@ -1,0 +1,86 @@
+import java.util.Scanner;
+class Stack {
+    int top;
+    int size;
+    String arr[];
+    Stack(int n){
+        size=n;
+        arr=new String[size];
+        top=-1;
+    }
+    void push(String x){
+        if(top==size-1){
+        }
+        else{
+            arr[++top]=x;
+        }
+    }
+    String pop(){
+        if(top==-1){
+          return "";
+        }
+        return arr[top--];
+    }
+    String peek(){
+        if (top ==-1)
+            return "";
+        return arr[top];
+    }
+
+    boolean isEmpty() {
+        return top == -1;
+    }
+}
+
+public class Main {
+
+    static boolean isOperator(char ch) {
+        return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
+    }
+
+    public static String postfixToInfix(String postfix) {
+
+        Stack stack = new Stack(postfix.length());
+
+        for (int i = 0; i < postfix.length(); i++) {
+
+            char ch = postfix.charAt(i);
+
+            // Operand
+            if (Character.isLetterOrDigit(ch)) {
+                stack.push(ch + "");
+            }
+
+            // Operator
+            else if (isOperator(ch)) {
+
+                if (stack.top < 1) {
+                    return "Invalid Expression";
+                }
+
+                String op2 = stack.pop();
+                String op1 = stack.pop();
+
+                String temp = "(" + op1 + ch + op2 + ")";
+                stack.push(temp);
+            }
+        }
+
+        if (stack.top != 0)
+            return "Invalid Expression";
+
+        return stack.pop();
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Postfix Expression: ");
+        String postfix = sc.nextLine();
+
+        String result = postfixToInfix(postfix);
+
+        System.out.println("Infix Expression: " + result);
+    }
+}
