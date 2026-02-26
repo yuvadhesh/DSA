@@ -1,0 +1,105 @@
+import java.util.*;
+class Node{
+    int data;
+    Node prev;
+    Node next;
+Node(int data){
+    this.data=data;
+    this.prev=null;
+    this.next=null;
+}
+}
+class LL{
+    Node front;
+    Node rear;
+boolean isEmpty(){
+    return front==rear;
+}
+void insertf(int val){
+    Node newNode=new Node(val);
+    if(isEmpty()){
+        front=rear=newNode;
+    }
+    else{
+        newNode=front;
+        front.prev=newNode;
+        front=newNode;
+    }
+}
+void insertr(int val){
+    Node newNode=new Node(val);
+    if(isEmpty()){
+        front=rear=newNode;
+    }
+    else{
+        rear=newNode;
+        newNode.prev=front;
+        newNode=front;
+    }
+}
+void deletef(){
+    if(isEmpty()){
+        System.out.print("Deque is empty");
+        return;
+    }
+    if(front==rear){
+        front=rear=null;
+    }
+    else{
+        front=front.prev;
+        front.next=null;
+    }
+}
+void deleter(){
+    if(isEmpty()){
+        System.out.print("Dequeue is empty");
+        return;
+    }
+    if(front==rear){
+        front=rear=null;
+    }
+    else{
+        rear=rear.next;
+        rear.prev=null;
+    }
+}
+void dis(){
+    if(isEmpty()){
+        System.out.print("Deque is empty");
+        return;
+    }
+    Node temp=front;
+    while(temp!=null){
+    System.out.print(temp.data+" ");
+        temp=temp.next;
+    }
+    
+}
+}
+public class Main{
+    public static void main(String[]args){
+        Scanner sc=new Scanner(System.in);
+        LL q=new LL();
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++){
+            int queue=sc.nextInt();
+            if(queue==1){
+                int val=sc.nextInt();
+                q.insertf(val);
+            }
+            else if(queue==2){
+                int val=sc.nextInt();
+                q.insertr(val);
+            }
+            else if(queue==3){
+                q.deletef();
+            }
+            else if(queue==4){
+                q.deleter();
+            }
+            else{
+                q.dis();
+            }
+        }
+    }
+}
